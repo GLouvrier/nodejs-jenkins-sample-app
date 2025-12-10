@@ -56,7 +56,7 @@ pipeline {
                 sh """
                     echo "Lancement du nouveau conteneur..."
                     docker run -d \
-                        --name ${CONTAINER_NAME}
+                        --name ${CONTAINER_NAME} \
                         -p 3000:3000 \
                         ${DOCKER_IMAGE}:${DOCKER_TAG}
                 """
