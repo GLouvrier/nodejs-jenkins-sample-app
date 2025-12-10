@@ -28,6 +28,15 @@ pipeline {
                 sh 'npm run test'
             }
         }
+
+        stage('SonarQube Analysis') {
+            steps {
+                echo "Analyse SonarQube..."
+                withSonarQubeEnv('sonarqube') {
+                    sh 'sonar-scanner -Dsonar.login=${SONAR_TOKEN}'
+                }
+            }
+        }
         
         stage('Build Docker Image') {
             steps {
@@ -65,7 +74,11 @@ pipeline {
     }
     
     post {
-        success { echo "Pipeline terminée avec succès !" }
+        success { 
+            echo "Nettoyage des anciennes images Docker..."
+            sh 'docker images ${IMAGE_NAME} --format "{{.ID}}" | tail -n +2 | xargs -r docker rmi -f'
+            echo "Pipeline terminée avec succès !" 
+        }
         failure { echo "La pipeline a échoué." }
     }
 }
