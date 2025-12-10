@@ -34,7 +34,8 @@ pipeline {
             steps {
                 echo "Analyse SonarQube..."
                 withSonarQubeEnv('SonarQube') {
-                    sh 'sonar-scanner -Dsonar.login=${SONAR_TOKEN}'
+                    def scannerHome = tool 'SonnarQube'
+                    sh '${scannerHome}/bin/sonar-scanner -Dsonar.login=${SONAR_TOKEN}'
                 }
             }
         }
@@ -77,7 +78,7 @@ pipeline {
     post {
         success { 
             echo "Nettoyage des anciennes images Docker..."
-            sh 'docker images ${IMAGE_NAME} --format "{{.ID}}" | tail -n +2 | xargs -r docker rmi -f'
+            sh 'docker images ${DOCKER_NAME} --format "{{.ID}}" | tail -n +2 | xargs -r docker rmi -f'
             echo "Pipeline terminée avec succès !" 
         }
         failure { echo "La pipeline a échoué." }
