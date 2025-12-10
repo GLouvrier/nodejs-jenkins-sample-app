@@ -5,6 +5,7 @@ pipeline {
         DOCKER_IMAGE = "jenkins-demo-app"
         DOCKER_TAG = "${BUILD_NUMBER}"
         CONTAINER_NAME = "jenkins-demo-container"
+        SONAR_TOKEN = credentials('sonarqube-token')
     }
     
     stages {
