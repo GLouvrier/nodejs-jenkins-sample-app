@@ -32,7 +32,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 echo "Analyse SonarQube..."
-                withSonarQubeEnv('sonarqube') {
+                withSonarQubeEnv('SonarQube') {
                     sh 'sonar-scanner -Dsonar.login=${SONAR_TOKEN}'
                 }
             }
