@@ -34,8 +34,7 @@ pipeline {
             steps {
                 echo "Analyse SonarQube..."
                 withSonarQubeEnv('SonarQube') {
-                    def scannerHome = tool 'SonnarQube'
-                    sh '${scannerHome}/bin/sonar-scanner -Dsonar.login=${SONAR_TOKEN}'
+                    sh '${tool : 'SonarQube'}/bin/sonar-scanner -Dsonar.login=${SONAR_TOKEN}'
                 }
             }
         }
