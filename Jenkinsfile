@@ -77,7 +77,7 @@ pipeline {
     post {
         success { 
             echo "Nettoyage des anciennes images Docker..."
-            sh 'docker images ${DOCKER_NAME} --format "{{.ID}}" | tail -n +2 | xargs -r docker rmi -f'
+            sh 'docker images ${DOCKER_IMAGE} --format "{{.ID}}" | tail -n +2 | xargs -r docker rmi -f'
             echo "Pipeline terminée avec succès !" 
         }
         failure { echo "La pipeline a échoué." }
