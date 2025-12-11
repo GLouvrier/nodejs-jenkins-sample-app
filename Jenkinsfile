@@ -34,7 +34,7 @@ pipeline {
             steps {
                 echo "Analyse SonarQube..."
                 withSonarQubeEnv('SonarQube') {
-                    sh "${tool('SonarQube')}/bin/sonar-scanner"
+                    sh "${tool('SonarScanner')}/bin/sonar-scanner"
                 }
             }
         }
